@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Alley Cat</title>
+<style>
+  :root {
+    color-scheme: dark;
+    --ground: #07050b;
+    --bezel: #17121f;
+    --bezel-edge: #2c2338;
+    --ink: #e9e3f2;
+    --muted: #9a8fb0;
+    --cyan: #55ffff;
+    --magenta: #ff55ff;
+  }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font: 14px/1.4 ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    padding-inline: 16px;
+    padding-block: 12px;
+    box-sizing: border-box;
+    -webkit-user-select: none;
+    user-select: none;
+    touch-action: manipulation;
+  }
+  .monitor {
+    width: min(100%, 960px, calc((100vh - 170px) * 1.6));
+    min-width: 280px;
+    padding: 14px;
+    background: var(--bezel);
+    border: 1px solid var(--bezel-edge);
+    border-radius: 18px;
+    box-shadow: 0 0 0 4px #0b0810, 0 24px 60px rgba(255, 85, 255, 0.08);
+    box-sizing: border-box;
+  }
+  #screen {
+    display: block;
+    width: 100%;
+    aspect-ratio: 320 / 200;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    background: #000;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  .legend {
+    max-width: 960px;
+    color: var(--muted);
+    font-size: 12px;
+    text-align: center;
+  }
+  .legend b { color: var(--cyan); font-weight: normal; }
+  .legend a { color: var(--magenta); }
+  .pad { display: none; width: min(100%, 520px); justify-content: space-between; gap: 12px; }
+  .pad .group { display: flex; gap: 10px; }
+  .pad button {
+    width: 64px; height: 56px;
+    border-radius: 12px;
+    border: 1px solid var(--bezel-edge);
+    background: var(--bezel);
+    color: var(--cyan);
+    font: 20px ui-monospace, monospace;
+    touch-action: none;
+  }
+  .pad button.on { background: #2a1f35; color: var(--magenta); }
+  .pad button:focus-visible { outline: 2px solid var(--magenta); }
+  @media (pointer: coarse) {
+    .pad { display: flex; }
+    .legend .keys { display: none; }
+    .monitor { width: min(100%, 960px, calc((100vh - 240px) * 1.6)); }
+  }
+</style>
+</head>
+<body>
+  <div class="monitor"><canvas id="screen" width="320" height="200" aria-label="Alley Cat game screen"></canvas></div>
+
+  <div class="pad" aria-label="Touch controls">
+    <div class="group">
+      <button type="button" data-action="left" aria-label="Left">&#9664;</button>
+      <button type="button" data-action="right" aria-label="Right">&#9654;</button>
+    </div>
+    <div class="group">
+      <button type="button" data-action="pause" aria-label="Pause">II</button>
+      <button type="button" data-action="down" aria-label="Down">&#9660;</button>
+      <button type="button" data-action="up" aria-label="Jump">&#9650;</button>
+    </div>
+  </div>
+
+  <p class="legend">
+    <span class="keys"><b>&larr; &rarr;</b> walk &middot; <b>&uarr; / Space</b> jump (swim up) &middot; <b>&darr;</b> drop down, drink, swim down &middot; <b>P</b> pause &middot; <b>M</b> sound &middot; </span>
+    A fan-made JavaScript remake of the 1984 PC game, with new art and sound.
+  </p>
+
+  <script src="js/engine.js"></script>
+  <script src="js/sprites.js"></script>
+  <script src="js/cat.js"></script>
+  <script src="js/alley.js"></script>
+  <script src="js/rooms.js"></script>
+  <script src="js/love.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>
